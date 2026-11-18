@@ -1,3 +1,9 @@
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
+.playwright-mcp
+.output
+.nitro
+.tanstack
+public/app-release
+src/routeTree.gen.ts
