@@ -23,10 +23,10 @@ export default function Gallery() {
           <figure className="reveal">
             <div className="shot-frame">
               <img
-                src="/shots/app-light.png"
+                src="/shots/app-light.webp"
                 alt="Lane 桌面端浅色主题：欢迎页与快捷任务"
-                width={2485}
-                height={1620}
+                width={1600}
+                height={999}
                 loading="lazy"
                 className="block w-full"
               />
@@ -39,10 +39,10 @@ export default function Gallery() {
           <figure className="reveal">
             <div className="shot-frame">
               <img
-                src="/shots/app-dark.png"
+                src="/shots/app-dark.webp"
                 alt="Lane 桌面端深色主题：欢迎页与快捷任务"
-                width={2608}
-                height={1700}
+                width={1600}
+                height={999}
                 loading="lazy"
                 className="block w-full"
               />

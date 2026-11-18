@@ -110,10 +110,10 @@ export default function Workflow() {
           <div>
             <div className="shot-frame">
               <img
-                src="/shots/app-running.png"
+                src="/shots/app-running.webp"
                 alt="Lane 桌面端运行中：思考、编辑文件和执行 npm run check 的活动列表"
-                width={2608}
-                height={1628}
+                width={1600}
+                height={999}
                 loading="lazy"
                 className="block w-full"
               />

@@ -161,7 +161,7 @@ export default function Features() {
           <div className="group relative mx-auto w-full max-w-[240px]">
             <div className="overflow-hidden rounded-[28px] border border-line bg-[#f1f3f5] transition-transform duration-300 group-hover:-translate-y-1 dark:bg-[#0f1115]">
               <img
-                src="/companions/cat-light.png"
+                src="/companions/cat-light.webp"
                 alt="Lane 的小猫伙伴抱着文件工作"
                 width={230}
                 height={250}
@@ -169,7 +169,7 @@ export default function Features() {
                 className="block w-full transition-transform duration-500 group-hover:scale-[1.03] dark:hidden"
               />
               <img
-                src="/companions/cat-dark.png"
+                src="/companions/cat-dark.webp"
                 alt="Lane 的小猫伙伴在深色主题下待命"
                 width={230}
                 height={250}

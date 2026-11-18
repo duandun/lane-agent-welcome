@@ -57,18 +57,18 @@ export default function Hero() {
           <figure className="shot-rise relative">
             <div className="shot-frame">
               <img
-                src="/shots/app-chat-light.png"
+                src="/shots/app-chat-light.webp"
                 alt="Lane 桌面端界面：用户让 Lane 修改下载按钮颜色，Lane 思考、读取文件、编辑并给出结果"
-                width={2608}
-                height={1628}
+                width={1600}
+                height={999}
                 fetchPriority="high"
                 className="block w-full dark:hidden"
               />
               <img
-                src="/shots/app-chat-dark.png"
+                src="/shots/app-chat-dark.webp"
                 alt="Lane 桌面端深色界面：一次完整的任务执行与结果"
-                width={2608}
-                height={1628}
+                width={1600}
+                height={999}
                 loading="lazy"
                 className="hidden w-full dark:block"
               />
