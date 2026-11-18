@@ -16,6 +16,7 @@ const PLATFORMS: {
     note: 'macOS 12+',
     href: 'https://wangpan.spic.com.cn/l/iFigrm',
     size: '245 MB',
+    external: true,
     icon: <AppleIcon />,
   },
   {
@@ -24,6 +25,7 @@ const PLATFORMS: {
     note: 'Windows 10+',
     href: 'https://wangpan.spic.com.cn/l/NF2U2q',
     size: '299 MB',
+    external: true,
     icon: <WindowsIcon />,
   },
   {
@@ -32,6 +34,7 @@ const PLATFORMS: {
     note: 'X11 / Wayland',
     href: 'https://wangpan.spic.com.cn/l/6FhBSG',
     size: '263 MB',
+    external: true,
     icon: <Terminal className="size-5" aria-hidden="true" />,
   },
   {
