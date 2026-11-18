@@ -13,4 +13,4 @@ __unconfig*
 todos.json
 .idea
 .playwright-mcp
-.app-release
+app-release
