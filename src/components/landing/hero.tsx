@@ -21,14 +21,22 @@ export default function Hero() {
             跑在你本机项目里的 AI agent
           </div>
 
-          <h1 className="text-balance text-[clamp(2.6rem,7.2vw,4.8rem)] font-extrabold leading-[1.04] tracking-[-0.045em] text-ink">
-            把任务写出来，
-            <br />让 Lane 动手做。
+          <h1 className="whitespace-nowrap text-[clamp(2rem,7.8vw,4.8rem)] font-extrabold leading-[1.15] tracking-[-0.045em] text-ink">
+            <span className="sr-only">Lane 替你动手</span>
+            <span aria-hidden="true">
+              {'Lane 替你'}
+              <span className="title-rotator">
+                <span className="title-rotator__track">
+                  {['写代码', '改文件', '跑命令', '做测试', '写代码'].map((word, index) => (
+                    <span key={`${word}-${index}`}>{word}</span>
+                  ))}
+                </span>
+              </span>
+            </span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-7 text-ink-soft sm:text-lg sm:leading-8">
-            它会读代码、改文件、执行命令——不是给你一段建议，而是在你的项目目录里把事做完。
-            过程、授权和结果，都留在你能看见的地方。
+            不是给你一段建议，而是在你的项目目录里把事做完。过程、授权和结果，都留在你能看见的地方。
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">

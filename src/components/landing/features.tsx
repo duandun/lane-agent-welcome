@@ -78,7 +78,7 @@ export default function Features() {
               在支持的模型之间随时切换，也可以接入自己的自定义模型。
             </p>
             <div className="mt-4 flex flex-wrap gap-1.5 font-mono text-[11px] text-ink-soft">
-              {['claude', 'gpt', 'gemini', 'custom'].map((name) => (
+              {['DeepSeek', 'GLM', 'Mimo', 'custom'].map((name) => (
                 <span key={name} className="rounded-md border border-line bg-surface-2 px-2 py-1">
                   {name}
                 </span>
