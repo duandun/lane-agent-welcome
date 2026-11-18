@@ -115,6 +115,7 @@ export default function Workflow() {
                 width={1600}
                 height={999}
                 loading="lazy"
+                decoding="async"
                 className="block w-full"
               />
             </div>

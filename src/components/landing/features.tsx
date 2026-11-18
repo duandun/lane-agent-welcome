@@ -166,6 +166,7 @@ export default function Features() {
                 width={230}
                 height={250}
                 loading="lazy"
+                decoding="async"
                 className="block w-full transition-transform duration-500 group-hover:scale-[1.03] dark:hidden"
               />
               <img
@@ -174,6 +175,7 @@ export default function Features() {
                 width={230}
                 height={250}
                 loading="lazy"
+                decoding="async"
                 className="hidden w-full transition-transform duration-500 group-hover:scale-[1.03] dark:block"
               />
             </div>

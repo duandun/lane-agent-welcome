@@ -28,6 +28,7 @@ export default function Gallery() {
                 width={1600}
                 height={999}
                 loading="lazy"
+                decoding="async"
                 className="block w-full"
               />
             </div>
@@ -44,6 +45,7 @@ export default function Gallery() {
                 width={1600}
                 height={999}
                 loading="lazy"
+                decoding="async"
                 className="block w-full"
               />
             </div>

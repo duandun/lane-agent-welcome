@@ -104,6 +104,7 @@ export default function ThemeToggle() {
   }
 
   const CurrentIcon = OPTIONS.find((option) => option.value === mode)?.icon ?? Monitor;
+  const currentLabel = OPTIONS.find((option) => option.value === mode)?.label ?? '跟随系统';
 
   return (
     <div ref={rootRef} className="relative">
@@ -111,6 +112,8 @@ export default function ThemeToggle() {
         ref={triggerRef}
         type="button"
         onClick={() => setOpen((value) => !value)}
+        aria-label={`主题模式：${currentLabel}`}
+        title="主题模式"
         aria-haspopup="menu"
         aria-expanded={open}
         className="cursor-pointer inline-flex h-10 items-center gap-2 pl-3 pr-2.5 text-xs font-semibold text-ink-soft hover:border-brand/30 hover:text-ink"
