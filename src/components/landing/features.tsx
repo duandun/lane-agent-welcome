@@ -8,6 +8,7 @@ import {
   Moon,
   MousePointer2,
   Pencil,
+  Plus,
   Sparkles,
   Sun,
   Terminal,
@@ -61,7 +62,7 @@ export default function Features() {
             <ActivityVisual />
           </article>
 
-          <article className="bento reveal p-6 md:col-span-2">
+          <article className="bento reveal p-6 md:col-span-3">
             <LaptopIcon />
             <h3 className="mt-4 text-lg font-extrabold tracking-tight text-ink">
               桌面端，开箱即用
@@ -69,24 +70,19 @@ export default function Features() {
             <p className="mt-2 text-sm leading-6 text-ink-soft">
               内置 agent 运行时与 agent-desktop 技能，不需要先装 Node、npm 或命令行工具。
             </p>
-          </article>
-
-          <article className="bento reveal p-6 md:col-span-2">
-            <Blocks className="size-5 text-brand" aria-hidden="true" />
-            <h3 className="mt-4 text-lg font-extrabold tracking-tight text-ink">模型自己选</h3>
-            <p className="mt-2 text-sm leading-6 text-ink-soft">
-              在支持的模型之间随时切换，也可以接入自己的自定义模型。
-            </p>
-            <div className="mt-4 flex flex-wrap gap-1.5 font-mono text-[11px] text-ink-soft">
-              {['DeepSeek', 'GLM', 'Mimo', 'custom'].map((name) => (
-                <span key={name} className="rounded-md border border-line bg-surface-2 px-2 py-1">
-                  {name}
+            <div className="mt-4 flex flex-wrap gap-1.5 text-[11px] font-semibold text-ink-soft">
+              {['macOS', 'Windows', 'Linux'].map((platform) => (
+                <span
+                  key={platform}
+                  className="rounded-md border border-line bg-surface-2 px-2 py-1"
+                >
+                  {platform}
                 </span>
               ))}
             </div>
           </article>
 
-          <article className="bento reveal p-6 md:col-span-2">
+          <article className="bento reveal p-6 md:col-span-3">
             <ThemeVisual />
             <h3 className="mt-4 text-lg font-extrabold tracking-tight text-ink">
               白天黑夜，跟着你
@@ -94,8 +90,44 @@ export default function Features() {
             <p className="mt-2 text-sm leading-6 text-ink-soft">
               浅色、深色或跟随系统。切换只改变外壳，不打断手上的任务。
             </p>
+            <div className="mt-4 flex flex-wrap gap-1.5 text-[11px] font-semibold text-ink-soft">
+              {['跟随系统', '浅色', '深色'].map((mode) => (
+                <span key={mode} className="rounded-md border border-line bg-surface-2 px-2 py-1">
+                  {mode}
+                </span>
+              ))}
+            </div>
           </article>
         </div>
+
+        <article className="bento reveal mt-4 grid gap-6 p-6 sm:p-8 lg:grid-cols-[1fr_1.05fr] lg:items-center">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-bold text-ink-soft">
+              <Blocks className="size-4 text-brand" aria-hidden="true" />
+              模型自由
+            </div>
+            <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-ink">
+              自定义模型，想加几个加几个。
+            </h3>
+            <p className="mt-2 max-w-lg text-sm leading-6 text-ink-soft">
+              内置模型之外，还可以接入任意 OpenAI 兼容供应商。一个供应商下可以添加多个模型，
+              保存后直接出现在模型选择器里，按项目随时切换。
+            </p>
+            <ul className="mt-5 space-y-2.5 text-sm leading-6 text-ink-soft">
+              {[
+                'OpenAI 兼容接口，Provider / 模型 ID / Base URL 自己填',
+                '一个供应商下可挂多个模型，编辑和删除互不影响',
+                '配置写进项目，Key 存在本地服务',
+              ].map((item) => (
+                <li key={item} className="flex gap-2">
+                  <Check className="mt-1 size-3.5 shrink-0 text-ok" aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <ModelVisual />
+        </article>
 
         <article className="bento reveal mt-4 grid gap-6 p-6 sm:p-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div>
@@ -190,6 +222,62 @@ export default function Features() {
         </article>
       </div>
     </section>
+  );
+}
+
+function ModelVisual() {
+  const rows = [
+    { name: 'Claude Sonnet 4.5', id: 'anthropic', custom: false, active: true },
+    { name: 'DeepSeek Chat', id: 'custom-deepseek', custom: true, active: false },
+    { name: 'Kimi K2', id: 'custom-kimi', custom: true, active: false },
+    { name: 'Qwen3 Coder', id: 'custom-qwen', custom: true, active: false },
+  ];
+
+  return (
+    <div className="rounded-2xl border border-line bg-surface-2/70 p-4">
+      <div className="flex items-center justify-between border-b border-line pb-2.5">
+        <span className="flex items-center gap-1.5 text-[11px] font-semibold text-ink-soft">
+          <Blocks className="size-3.5 text-brand" aria-hidden="true" />
+          模型选择
+        </span>
+        <span className="font-mono text-[10px] text-ink-soft/60">3 个自定义</span>
+      </div>
+
+      <div className="mt-3 space-y-1.5">
+        {rows.map((row) => (
+          <div
+            key={row.id}
+            className={`flex items-center justify-between gap-2 rounded-lg border px-3 py-2 text-xs ${
+              row.active
+                ? 'border-brand/30 bg-accent/60 text-ink'
+                : 'border-line bg-surface text-ink-soft'
+            }`}
+          >
+            <span className="flex min-w-0 items-center gap-2">
+              <span
+                className={`size-1.5 shrink-0 rounded-full ${row.active ? 'bg-ok' : 'bg-line'}`}
+              />
+              <span className="truncate">{row.name}</span>
+              {row.custom && (
+                <span className="shrink-0 rounded-full border border-brand/20 bg-brand/10 px-1.5 py-0.5 text-[9px] font-semibold text-brand">
+                  自定义
+                </span>
+              )}
+            </span>
+            {row.active ? (
+              <Check className="size-3.5 shrink-0 text-ok" aria-hidden="true" />
+            ) : (
+              <span className="shrink-0 font-mono text-[10px] text-ink-soft/60">{row.id}</span>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-2 flex items-center justify-center gap-1.5 rounded-lg border border-dashed border-line px-3 py-2 text-[11px] font-semibold text-ink-soft">
+        <Plus className="size-3.5" aria-hidden="true" />
+        添加自定义模型
+      </div>
+    </div>
   );
 }
 
