@@ -1,9 +1,10 @@
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { TanStackDevtools } from '@tanstack/react-devtools';
-import { Analytics } from '@vercel/analytics/react';
 
 import appCss from '../styles.css?url';
+
+const baiduId = import.meta.env.VITE_BAIDU_TONGJI_ID?.trim() || '114ed4183c4c568265040633957ffa72';
 
 const themeScript = `(function(){try{var s=localStorage.getItem('lane-theme');var d=s==='dark'||(s!=='light'&&window.matchMedia('(prefers-color-scheme: dark)').matches);var r=document.documentElement;r.classList.toggle('dark',d);r.style.colorScheme=d?'dark':'light';var m=document.querySelector('meta[name="color-scheme"]');if(m)m.setAttribute('content',d?'dark':'light');}catch(e){}})()`;
 
@@ -54,7 +55,18 @@ export const Route = createRootRoute({
       },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
     ],
-    scripts: [{ children: themeScript }],
+    scripts: [
+      { children: themeScript },
+      ...(baiduId
+        ? [
+            { children: 'window._hmt = window._hmt || [];' },
+            {
+              src: `https://hm.baidu.com/hm.js?${encodeURIComponent(baiduId)}`,
+              async: true,
+            },
+          ]
+        : []),
+    ],
   }),
   shellComponent: RootDocument,
 });
@@ -67,7 +79,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
-        {import.meta.env.PROD && <Analytics />}
         <TanStackDevtools
           config={{
             position: 'bottom-right',

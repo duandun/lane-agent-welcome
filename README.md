@@ -123,16 +123,16 @@ public/app-release/lane-agent-linux.zip
 
 ## 访问统计
 
-使用 **Vercel Analytics**（`@vercel/analytics`）：
+使用 **百度统计**：
 
-- 自动统计页面访问（PV/UV），数据在 Vercel 项目的 Analytics 中查看；需要在 Vercel 后台开启 Web Analytics。
-- 已埋点的事件：
-  - `download_click`：平台下载卡片（属性 `platform`）
-  - `cta_click`：首屏、导航栏和结尾的主按钮（属性 `target`）
-  - `nav_click`：顶部导航（属性 `target`）
-  - `theme_change`：主题切换（属性 `mode`）
-- 统计脚本只在生产构建（`import.meta.env.PROD`）加载，本地开发不发送数据。
-- Vercel Analytics 不使用 Cookie，不需要额外的同意弹窗。
+- 当前站点的 Site ID 已配置在 `src/routes/__root.tsx`；该 ID 是公开的，会随页面下发。
+- 如需切换到其它站点，设置环境变量 `VITE_BAIDU_TONGJI_ID=<Site ID>` 覆盖即可。
+- 自动统计页面访问（PV/UV）；已埋点的事件按百度统计的 `_trackEvent(分类, 动作, 标签)` 上报：
+  - `download` / `click` / 平台名
+  - `cta` / `click` / 入口名
+  - `nav` / `click` / 导航项
+  - `theme` / `change` / 模式
+- 百度统计会使用 Cookie；面向需要 Cookie 同意的地区时，请自行补充提示。
 
 ## 说明
 

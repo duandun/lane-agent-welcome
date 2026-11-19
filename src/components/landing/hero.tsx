@@ -1,5 +1,5 @@
 import { ArrowRight, Blocks, ShieldCheck, Terminal, Zap } from 'lucide-react';
-import { track } from '@vercel/analytics';
+import { trackEvent } from '#/lib/analytics';
 
 export default function Hero() {
   return (
@@ -44,7 +44,7 @@ export default function Hero() {
             <a
               href="#downloads"
               className="btn btn-primary"
-              onClick={() => track('cta_click', { target: 'hero_download' })}
+              onClick={() => trackEvent('cta', 'click', 'hero_download')}
             >
               下载 Lane
               <ArrowRight className="size-4" />
@@ -52,7 +52,7 @@ export default function Hero() {
             <a
               href="#features"
               className="btn btn-ghost"
-              onClick={() => track('cta_click', { target: 'hero_features' })}
+              onClick={() => trackEvent('cta', 'click', 'hero_features')}
             >
               看看它能做什么
             </a>

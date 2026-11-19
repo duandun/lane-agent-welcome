@@ -1,5 +1,5 @@
 import { ArrowRight, ArrowUpRight, Globe, Terminal } from 'lucide-react';
-import { track } from '@vercel/analytics';
+import { trackEvent } from '#/lib/analytics';
 import type { ReactNode } from 'react';
 
 const PLATFORMS: {
@@ -74,7 +74,7 @@ export function Downloads() {
               download={platform.external ? undefined : true}
               target={platform.external ? '_blank' : undefined}
               rel={platform.external ? 'noreferrer' : undefined}
-              onClick={() => track('download_click', { platform: platform.name })}
+              onClick={() => trackEvent('download', 'click', platform.name)}
               className="platform-card reveal group flex flex-col p-4 no-underline"
             >
               <span className="text-brand">{platform.icon}</span>
@@ -130,7 +130,7 @@ export function FinalCta() {
               <a
                 href="#downloads"
                 className="btn bg-white text-[#0c1626] hover:bg-white/90"
-                onClick={() => track('cta_click', { target: 'final_download' })}
+                onClick={() => trackEvent('cta', 'click', 'final_download')}
               >
                 下载 Lane
                 <ArrowRight className="size-4" />
@@ -138,7 +138,7 @@ export function FinalCta() {
               <a
                 href="#features"
                 className="btn border-white/20 bg-white/5 text-white hover:bg-white/10"
-                onClick={() => track('cta_click', { target: 'final_features' })}
+                onClick={() => trackEvent('cta', 'click', 'final_features')}
               >
                 再看一眼功能
               </a>
