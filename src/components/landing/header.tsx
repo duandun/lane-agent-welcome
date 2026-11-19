@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import { track } from '@vercel/analytics';
 import ThemeToggle from './theme-toggle';
 
 export const NAV = [
@@ -22,7 +23,12 @@ export default function Header() {
 
         <nav className="hidden items-center gap-7 text-sm font-semibold text-ink-soft md:flex">
           {NAV.map((item) => (
-            <a key={item.href} href={item.href} className="transition-colors hover:text-ink">
+            <a
+              key={item.href}
+              href={item.href}
+              className="transition-colors hover:text-ink"
+              onClick={() => track('nav_click', { target: item.label })}
+            >
               {item.label}
             </a>
           ))}
@@ -30,7 +36,11 @@ export default function Header() {
 
         <div className="flex items-center gap-5">
           <ThemeToggle />
-          <a href="#downloads" className="btn btn-primary hidden h-9 px-4 text-xs sm:inline-flex">
+          <a
+            href="#downloads"
+            className="btn btn-primary hidden h-9 px-4 text-xs sm:inline-flex"
+            onClick={() => track('cta_click', { target: 'header_download' })}
+          >
             下载
             <ArrowRight className="size-3.5" />
           </a>

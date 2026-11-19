@@ -121,6 +121,19 @@ public/app-release/lane-agent-linux.zip
 - `/shots`、`/companions`、`/brand`、`/fonts` 的长期缓存；
 - `/app-release` 的短期缓存与 stale-while-revalidate。
 
+## 访问统计
+
+使用 **Vercel Analytics**（`@vercel/analytics`）：
+
+- 自动统计页面访问（PV/UV），数据在 Vercel 项目的 Analytics 中查看；需要在 Vercel 后台开启 Web Analytics。
+- 已埋点的事件：
+  - `download_click`：平台下载卡片（属性 `platform`）
+  - `cta_click`：首屏、导航栏和结尾的主按钮（属性 `target`）
+  - `nav_click`：顶部导航（属性 `target`）
+  - `theme_change`：主题切换（属性 `mode`）
+- 统计脚本只在生产构建（`import.meta.env.PROD`）加载，本地开发不发送数据。
+- Vercel Analytics 不使用 Cookie，不需要额外的同意弹窗。
+
 ## 说明
 
 - 页面主体是静态内容，只有主题菜单等少量交互，不依赖数据层。

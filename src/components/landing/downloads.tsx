@@ -1,4 +1,5 @@
 import { ArrowRight, ArrowUpRight, Globe, Terminal } from 'lucide-react';
+import { track } from '@vercel/analytics';
 import type { ReactNode } from 'react';
 
 const PLATFORMS: {
@@ -73,6 +74,7 @@ export function Downloads() {
               download={platform.external ? undefined : true}
               target={platform.external ? '_blank' : undefined}
               rel={platform.external ? 'noreferrer' : undefined}
+              onClick={() => track('download_click', { platform: platform.name })}
               className="platform-card reveal group flex flex-col p-4 no-underline"
             >
               <span className="text-brand">{platform.icon}</span>
@@ -125,13 +127,18 @@ export function FinalCta() {
               下载桌面端，或者打开网页版。它不会替你写一段泛泛的建议，它会直接在你的项目里动手。
             </p>
             <div className="mt-7 flex flex-wrap justify-center gap-3">
-              <a href="#downloads" className="btn bg-white text-[#0c1626] hover:bg-white/90">
+              <a
+                href="#downloads"
+                className="btn bg-white text-[#0c1626] hover:bg-white/90"
+                onClick={() => track('cta_click', { target: 'final_download' })}
+              >
                 下载 Lane
                 <ArrowRight className="size-4" />
               </a>
               <a
                 href="#features"
                 className="btn border-white/20 bg-white/5 text-white hover:bg-white/10"
+                onClick={() => track('cta_click', { target: 'final_features' })}
               >
                 再看一眼功能
               </a>

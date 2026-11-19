@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { Check, Monitor, Moon, Sun } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { track } from '@vercel/analytics';
 
 type Mode = 'system' | 'light' | 'dark';
 
@@ -87,6 +88,7 @@ export default function ThemeToggle() {
   function pick(next: Mode) {
     setMode(next);
     apply(next);
+    track('theme_change', { mode: next });
     setOpen(false);
     triggerRef.current?.focus();
   }
