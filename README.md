@@ -1,211 +1,128 @@
-Welcome to your new TanStack Start app!
+# Lane Agent 官网
 
-# Getting Started
+Lane 的产品主页，介绍 Lane 能做什么、展示真实桌面端界面，并提供各平台下载入口。
 
-To run this application:
+![Lane 桌面端界面](./public/shots/app-chat-light.webp)
+
+## 技术栈
+
+- **TanStack Start**：SSR + 文件路由（`@tanstack/react-router`）
+- **React 19 + TypeScript**
+- **Vite 8 + Nitro**：构建与 Vercel 部署
+- **Tailwind CSS v4**：CSS-first，无 `tailwind.config.js`
+- **lucide-react**：图标
+- **Manrope**：自托管变量字体，不依赖第三方字体 CDN
+
+## 本地开发
 
 ```bash
 npm install
-npm run dev
+npm run dev        # http://localhost:3000，端口占用时自动顺延
 ```
 
-# Building For Production
+| 命令               | 作用                                  |
+| ------------------ | ------------------------------------- |
+| `npm run build`    | 生产构建，输出 Nitro 产物             |
+| `npm run preview`  | 预览生产构建                          |
+| `npm run lint`     | ESLint                                |
+| `npm run check`    | Prettier 格式检查                     |
+| `npm run format`   | Prettier 写入 + ESLint 自动修复       |
+| `npx tsc --noEmit` | TypeScript 类型检查（未单独封装脚本） |
 
-To build this application for production:
+项目没有配置测试框架。
 
-```bash
-npm run build
+## 目录结构
+
+```
+src/
+  routes/
+    __root.tsx            HTML 壳、meta、主题初始化脚本、字体预加载
+    index.tsx             首页组合入口
+    routeTree.gen.ts      路由树（自动生成，不要手改）
+  components/landing/
+    header.tsx            顶部导航
+    theme-toggle.tsx      主题菜单：跟随系统 / 浅色 / 深色
+    hero.tsx              首屏标题与主视觉
+    features.tsx          功能卡片、自定义模型、桌面操控、小伙伴
+    workflow.tsx          三步流程与运行中截图
+    gallery.tsx           界面展示与连接示意
+    downloads.tsx         平台下载卡片与结尾 CTA
+    section-intro.tsx     通用区块标题
+  styles.css              Tailwind、设计 token、滚动动画、标题轮播
+  router.tsx              路由实例
+public/
+  brand/                  Logo 与 favicon
+  shots/                  桌面端截图（WebP）
+  companions/             小伙伴图片
+  fonts/                  Manrope 字体与 OFL 许可
 ```
 
-## Styling
+## 内容维护
 
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
+### 首屏标题
 
-### Removing Tailwind CSS
+标题和轮播动词在 `src/components/landing/hero.tsx`：
 
-If you prefer not to use Tailwind CSS:
+- 文案结构：`Lane 替你` + 轮播词。
+- 动词数组直接改 `['写代码', '改文件', '跑命令', '做测试']` 即可。
+- 轮播完全由 CSS 驱动（`src/styles.css` 的 `.title-rotator` 与 `title-roll`），固定尺寸，不会引起布局跳动。
+- `prefers-reduced-motion: reduce` 时停止轮播，静态显示第一个词。
+- 读屏使用 `sr-only` 的完整标题，视觉轮播部分 `aria-hidden`。
 
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Remove `@tailwindcss/vite` and `tailwindcss` from `package.json`
+### 截图与图片
 
-## Linting & Formatting
+- 截图放在 `public/shots/`，统一使用压缩后的 WebP。
+- 替换时保持对应宽高比；`width` / `height` 写在组件里，避免布局偏移。
+- 首屏大图建议控制在 1280px 宽、50 KB 左右；其余截图保持懒加载。
+- 小伙伴图片在 `public/companions/`，品牌资源在 `public/brand/`。
 
-This project uses [eslint](https://eslint.org/) and [prettier](https://prettier.io/) for linting and formatting. Eslint is configured using [tanstack/eslint-config](https://tanstack.com/config/latest/docs/eslint). The following scripts are available:
+### 主题
 
-```bash
-npm run lint
-npm run format
-npm run check
+- 支持跟随系统、浅色、深色三种模式，选择结果写入 `localStorage` 的 `lane-theme`。
+- 首屏主题由 `src/routes/__root.tsx` 里的内联脚本在渲染前应用，避免闪烁。
+- 设计 token 在 `src/styles.css` 的 `:root` 与 `.dark` 中；暗色模式基于 `.dark` class。
+
+### 滚动效果
+
+全部是 CSS Scroll-Driven Animations，没有滚动事件监听：
+
+- 顶部进度条：`.scroll-progress` + `scroll(root)`
+- 区块进入：`.reveal` / `.shot-rise` + `view()`
+- 流程线绘制：`.lane-path` + 命名 view timeline
+
+不支持该特性的浏览器会保持静态显示；`prefers-reduced-motion` 下动画关闭。
+
+### 字体
+
+- 使用自托管的 Manrope 变量字体：`public/fonts/manrope-latin.woff2`。
+- 字体只包含 Latin 子集，中文走系统字体（PingFang SC 等）。
+- 许可文件：`public/fonts/OFL.txt`。
+- 在 `__root.tsx` 中通过 `preload` 提前加载，`font-display: swap` 避免阻塞文字渲染。
+
+## 下载与部署
+
+下载卡片在 `src/components/landing/downloads.tsx`，默认指向：
+
+```
+public/app-release/Lane-agent-0.1.0-arm64.dmg
+public/app-release/lane-agent-win.zip
+public/app-release/lane-agent-linux.zip
 ```
 
-## Deploy to Vercel
+- `public/app-release/` 已在 `.gitignore` 中忽略，仓库里不包含安装包。
+- 部署前把安装包放到该目录，或把 `href` 改成外部下载地址（GitHub Releases、对象存储等）。
+- Web 入口指向 `https://ai.cr123.life`。
+- macOS / Windows 安装包未签名，首次打开可能需要在系统提示中选择“仍要打开”。
+- Vercel 对单文件大小和构建产物有限制，较大的安装包建议单独托管。
 
-1. Push this repo to GitHub, GitLab, or Bitbucket
-2. In Vercel, choose **Add New > Project** and import the repo
-3. Keep the detected TanStack Start framework settings
-4. Add production values from `.env.example` under **Settings > Environment Variables**
-5. Deploy
+`vercel.json` 已配置：
 
-Vercel runs the build script and deploys Nitro's output as Vercel Functions and
-static assets. The included `vercel.json` makes framework detection explicit.
+- TanStack Start 框架识别；
+- `/shots`、`/companions`、`/brand`、`/fonts` 的长期缓存；
+- `/app-release` 的短期缓存与 stale-while-revalidate。
 
-Variables prefixed with `VITE_` are included in the browser bundle. Keep secrets
-unprefixed so they remain server-only.
+## 说明
 
-## Shadcn
-
-Add components using the latest version of [Shadcn](https://ui.shadcn.com/).
-
-```bash
-pnpm dlx shadcn@latest add button
-```
-
-## Routing
-
-This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
-
-### Adding A Route
-
-To add a new route to your application just add a new file in the `./src/routes` directory.
-
-TanStack will automatically generate the content of the route file for you.
-
-Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from '@tanstack/react-router';
-```
-
-Then anywhere in your JSX you can use it like so:
-
-```tsx
-<Link to="/about">About</Link>
-```
-
-This will create a link that will navigate to the `/about` route.
-
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
-
-### Using A Layout
-
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
-
-Here is an example layout that includes a header:
-
-```tsx
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router';
-
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'My App' },
-    ],
-  }),
-  shellComponent: ({ children }) => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <header>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </nav>
-        </header>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  ),
-});
-```
-
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-## Server Functions
-
-TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
-
-```tsx
-import { createServerFn } from '@tanstack/react-start';
-
-const getServerTime = createServerFn({
-  method: 'GET',
-}).handler(async () => {
-  return new Date().toISOString();
-});
-
-// Use in a component
-function MyComponent() {
-  const [time, setTime] = useState('');
-
-  useEffect(() => {
-    getServerTime().then(setTime);
-  }, []);
-
-  return <div>Server time: {time}</div>;
-}
-```
-
-## API Routes
-
-You can create API routes by using the `server` property in your route definitions:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router';
-import { json } from '@tanstack/react-start';
-
-export const Route = createFileRoute('/api/hello')({
-  server: {
-    handlers: {
-      GET: () => json({ message: 'Hello, World!' }),
-    },
-  },
-});
-```
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router';
-
-export const Route = createFileRoute('/people')({
-  loader: async () => {
-    const response = await fetch('https://swapi.dev/api/people');
-    return response.json();
-  },
-  component: PeopleComponent,
-});
-
-function PeopleComponent() {
-  const data = Route.useLoaderData();
-  return (
-    <ul>
-      {data.results.map((person) => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ul>
-  );
-}
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
-
-For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+- 页面主体是静态内容，只有主题菜单等少量交互，不依赖数据层。
+- 浏览器需要支持 WebP；滚动动画作为渐进增强，不支持时页面仍完整可读。
+- 路由树由 TanStack Router 插件生成，修改路由文件后不要手动编辑 `src/routeTree.gen.ts`。
