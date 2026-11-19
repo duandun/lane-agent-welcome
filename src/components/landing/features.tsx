@@ -227,7 +227,7 @@ export default function Features() {
 
 function ModelVisual() {
   const rows = [
-    { name: 'Claude Sonnet 4.5', id: 'anthropic', custom: false, active: true },
+    { name: 'Mimo V2.6 Flash', id: 'mimo', custom: false, active: true },
     { name: 'DeepSeek Chat', id: 'custom-deepseek', custom: true, active: false },
     { name: 'Kimi K2', id: 'custom-kimi', custom: true, active: false },
     { name: 'Qwen3 Coder', id: 'custom-qwen', custom: true, active: false },
