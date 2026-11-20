@@ -43,7 +43,7 @@ src/
     header.tsx            顶部导航
     theme-toggle.tsx      主题菜单：跟随系统 / 浅色 / 深色
     hero.tsx              首屏标题与主视觉
-    features.tsx          功能卡片、自定义模型、桌面操控、小伙伴
+    features.tsx          功能卡片、自定义模型、角色、桌面操控、小伙伴
     workflow.tsx          三步流程与运行中截图
     gallery.tsx           界面展示与连接示意
     downloads.tsx         平台下载卡片与结尾 CTA

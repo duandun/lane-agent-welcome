@@ -12,6 +12,7 @@ import {
   Sparkles,
   Sun,
   Terminal,
+  Users,
   Zap,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
@@ -127,6 +128,34 @@ export default function Features() {
             </ul>
           </div>
           <ModelVisual />
+        </article>
+
+        <article className="bento reveal mt-4 grid gap-6 p-6 sm:p-8 lg:grid-cols-[1fr_1.05fr] lg:items-center">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-bold text-ink-soft">
+              <Users className="size-4 text-brand" aria-hidden="true" />
+              角色分工
+            </div>
+            <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-ink">
+              换个角色，换个思路。
+            </h3>
+            <p className="mt-2 max-w-lg text-sm leading-6 text-ink-soft">
+              顶部角色选择器里，前端工程师、代码审查员、后端工程师、测试工程师、技术写手各有自己的提示词和关注点，切换后立刻换一种回答方式。没找到合适的？新增一个，填好名称、描述和提示词就能用。
+            </p>
+            <ul className="mt-5 space-y-2.5 text-sm leading-6 text-ink-soft">
+              {[
+                '内置前端、后端、审查、测试、写作五种角色',
+                '每个角色有自己的提示词与侧重点',
+                '新增角色可单独指定模型，默认跟随当前模型',
+              ].map((item) => (
+                <li key={item} className="flex gap-2">
+                  <Check className="mt-1 size-3.5 shrink-0 text-ok" aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <RoleVisual />
         </article>
 
         <article className="bento reveal mt-4 grid gap-6 p-6 sm:p-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
@@ -276,6 +305,54 @@ function ModelVisual() {
       <div className="mt-2 flex items-center justify-center gap-1.5 rounded-lg border border-dashed border-line px-3 py-2 text-[11px] font-semibold text-ink-soft">
         <Plus className="size-3.5" aria-hidden="true" />
         添加自定义模型
+      </div>
+    </div>
+  );
+}
+
+function RoleVisual() {
+  const roles = [
+    { name: '前端工程师', detail: 'React / 交互与样式', active: true },
+    { name: '代码审查员', detail: '审查改动，只挑关键问题' },
+    { name: '后端工程师', detail: '服务端 / API / 数据库' },
+    { name: '测试工程师', detail: '测试用例、边界与回归' },
+    { name: '技术写手', detail: '文档、README、说明' },
+  ];
+
+  return (
+    <div className="rounded-2xl border border-line bg-surface-2/70 p-4">
+      <div className="flex items-center justify-between border-b border-line pb-2.5">
+        <span className="flex items-center gap-1.5 text-[11px] font-semibold text-ink-soft">
+          <Users className="size-3.5 text-brand" aria-hidden="true" />
+          角色选择
+        </span>
+        <span className="font-mono text-[10px] text-ink-soft/60">{roles.length} 个角色</span>
+      </div>
+
+      <div className="mt-3 space-y-1.5">
+        {roles.map((role) => (
+          <div
+            key={role.name}
+            className={`flex items-center justify-between gap-2 rounded-lg border px-3 py-2 text-xs ${
+              role.active
+                ? 'border-brand/30 bg-accent/60 text-ink'
+                : 'border-line bg-surface text-ink-soft'
+            }`}
+          >
+            <span className="flex min-w-0 items-center gap-2">
+              <span
+                className={`size-1.5 shrink-0 rounded-full ${role.active ? 'bg-ok' : 'bg-line'}`}
+              />
+              <span className="truncate">{role.name}</span>
+            </span>
+            <span className="shrink-0 text-[10px] text-ink-soft/70">{role.detail}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-2 flex items-center justify-center gap-1.5 rounded-lg border border-dashed border-line px-3 py-2 text-[11px] font-semibold text-ink-soft">
+        <Plus className="size-3.5" aria-hidden="true" />
+        新增角色
       </div>
     </div>
   );
