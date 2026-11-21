@@ -2,7 +2,9 @@ import {
   Blocks,
   Cat,
   Check,
+  Ellipsis,
   FileCode2,
+  History,
   Keyboard,
   Monitor,
   Moon,
@@ -156,6 +158,35 @@ export default function Features() {
             </ul>
           </div>
           <RoleVisual />
+        </article>
+
+        <article className="bento reveal mt-4 grid gap-6 p-6 sm:p-8 lg:grid-cols-[1fr_1.05fr] lg:items-center">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-bold text-ink-soft">
+              <History className="size-4 text-brand" aria-hidden="true" />
+              会话历史
+            </div>
+            <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-ink">
+              每次回来，都接得上上次。
+            </h3>
+            <p className="mt-2 max-w-lg text-sm leading-6 text-ink-soft">
+              打开项目时自动回到最近的会话，左侧侧栏按目录列出历史。新建、切换、重命名、删除都在这里；
+              会话标题取自你的第一条提问，一眼就能认出是哪件事。
+            </p>
+            <ul className="mt-5 space-y-2.5 text-sm leading-6 text-ink-soft">
+              {[
+                '点开历史会话即恢复消息、角色和待回答的问题',
+                '悬停出现操作菜单，可重命名或删除，删除前再确认一次',
+                '桌面端常驻可折叠，窄屏收进抽屉',
+              ].map((item) => (
+                <li key={item} className="flex gap-2">
+                  <Check className="mt-1 size-3.5 shrink-0 text-ok" aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <SessionVisual />
         </article>
 
         <article className="bento reveal mt-4 grid gap-6 p-6 sm:p-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
@@ -353,6 +384,56 @@ function RoleVisual() {
       <div className="mt-2 flex items-center justify-center gap-1.5 rounded-lg border border-dashed border-line px-3 py-2 text-[11px] font-semibold text-ink-soft">
         <Plus className="size-3.5" aria-hidden="true" />
         新增角色
+      </div>
+    </div>
+  );
+}
+
+function SessionVisual() {
+  const sessions = [
+    { title: '把下载按钮换成品牌蓝', time: '刚刚', active: true },
+    { title: '给活动列表加上耗时显示', time: '2 小时前' },
+    { title: '接入会话历史侧栏', time: '昨天' },
+    { title: '整理 README 的使用说明', time: '3 天前' },
+  ];
+
+  return (
+    <div className="rounded-2xl border border-line bg-surface-2/70 p-4">
+      <div className="flex items-center justify-between border-b border-line pb-2.5">
+        <span className="flex items-center gap-1.5 text-[11px] font-semibold text-ink-soft">
+          <History className="size-3.5 text-brand" aria-hidden="true" />
+          历史会话
+        </span>
+        <span className="font-mono text-[10px] text-ink-soft/60">{sessions.length} 个</span>
+      </div>
+
+      <div className="mt-3 flex items-center justify-center gap-1.5 rounded-lg border border-line bg-surface px-3 py-2 text-[11px] font-semibold text-ink">
+        <Plus className="size-3.5" aria-hidden="true" />
+        新会话
+      </div>
+
+      <div className="mt-3 space-y-1">
+        {sessions.map((session) => (
+          <div
+            key={session.title}
+            className={`flex items-center justify-between gap-2 rounded-lg border px-3 py-2 text-xs ${
+              session.active
+                ? 'border-brand/30 bg-accent/60 text-ink'
+                : 'border-line bg-surface text-ink-soft'
+            }`}
+          >
+            <span className="flex min-w-0 items-center gap-2">
+              <span
+                className={`size-1.5 shrink-0 rounded-full ${session.active ? 'bg-ok' : 'bg-line'}`}
+              />
+              <span className="min-w-0">
+                <span className="block truncate">{session.title}</span>
+                <span className="block text-[10px] text-ink-soft/60">{session.time}</span>
+              </span>
+            </span>
+            <Ellipsis className="size-3.5 shrink-0 text-ink-soft/60" aria-hidden="true" />
+          </div>
+        ))}
       </div>
     </div>
   );

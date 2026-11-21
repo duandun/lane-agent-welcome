@@ -56,7 +56,7 @@ export default function Workflow() {
             <Step
               n="02"
               title="说清楚要做什么"
-              body="用自然语言描述任务，也可以带上 skill 或附件。Lane 会在当前目录里创建会话，接着上下文开始工作。"
+              body="用自然语言描述任务，也可以带上 skill 或附件。Lane 会回到当前目录最近的会话，也可以随时新建一个，接着上下文开始工作。"
             >
               <div className="rounded-xl border border-line bg-surface-2/80 p-3 text-xs leading-6 text-ink">
                 把下载按钮换成品牌蓝，移动端间距也收一下，改完跑一遍检查。
