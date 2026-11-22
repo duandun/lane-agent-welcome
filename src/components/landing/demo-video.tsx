@@ -42,7 +42,7 @@ export default function DemoVideo() {
           <figcaption className="mt-3 flex flex-wrap items-center justify-between gap-2 px-1 text-xs text-ink-soft">
             <span className="inline-flex items-center gap-2">
               <Play className="size-3.5" aria-hidden="true" />
-              11 秒 · 从一句提问到改完检查
+              13 秒 · 从一句提问到改完检查
             </span>
             <span className="font-mono">Lane · 动手、改文件、换模型</span>
           </figcaption>
