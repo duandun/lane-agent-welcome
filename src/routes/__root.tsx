@@ -1,6 +1,7 @@
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { TanStackDevtools } from '@tanstack/react-devtools';
+import React from 'react';
 
 import appCss from '../styles.css?url';
 
@@ -57,7 +58,7 @@ export const Route = createRootRoute({
     ],
     scripts: [
       { children: themeScript },
-      ...(baiduId
+      ...(import.meta.env.PROD && baiduId
         ? [
             { children: 'window._hmt = window._hmt || [];' },
             {
